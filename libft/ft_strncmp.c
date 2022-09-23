@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:21:55 by sangtale          #+#    #+#             */
-/*   Updated: 2022/03/22 15:21:55 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:03:57 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_strncmp(const char *str1, const char *str2, size_t num)
 {
 	size_t	idx;
 
+	if (!str1 || !str2)
+		return (0);
 	idx = 0;
 	while ((str1[idx] != '\0' || str2[idx] != '\0') && idx < num)
 	{
