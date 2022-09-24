@@ -4,10 +4,11 @@ LIBC		= ar rcs
 LIBFT		= libft
 LIBFT_LIB	= libft.a
 SRCS		= 	\
-				debug.c \
+				main.c \
 				utils.c \
 				valid_check.c \
 				valid_check_utils.c \
+				map_check.c
 
 OBJS		= $(SRCS:%.c=%.o)
 
@@ -19,7 +20,7 @@ all			: $(NAME)
 
 $(NAME)		: $(OBJS)
 		@make all -C $(LIBFT)/
-		@gcc -o $(NAME) $(OBJS) -Llibft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
+		@gcc -o $(NAME) $(OBJS) -Llibft -lft 
 
 
 clean :

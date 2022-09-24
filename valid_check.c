@@ -25,7 +25,7 @@ static int	is_invalid_extension(char *filename)
 	return (1);
 }
 
-static int	fill_map_info(char **line, int fd, int id, t_map_info *info)
+static int	fill_img_info(char **line, int fd, int id, t_img_info *info)
 {
 	while (ft_strncmp(*line, "\n", 1) != 0 && ft_strlen(*line) != 1 \
 		&& line != NULL)
@@ -53,22 +53,22 @@ static int	fill_map_info(char **line, int fd, int id, t_map_info *info)
 	return (0);
 }
 
-static void	valid_check(int fd, t_map_info *info)
+static void	valid_check(int fd, t_img_info *info)
 {
 	char	*line;
 
 	if (skip_newline(&line, fd))
 		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	if (fill_map_info(&line, fd, 0, info))
+	if (fill_img_info(&line, fd, 0, info))
 	{
-		free_map_info(info);
+		free_img_info(info);
 		free_err_exit(NULL, line, NULL, "Invalid Map\n");
 	}
 	if (skip_newline(&line, fd))
 		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	if (fill_map_info(&line, fd, 0, info))
+	if (fill_img_info(&line, fd, 0, info))
 	{
-		free_map_info(info);
+		free_img_info(info);
 		free_err_exit(NULL, line, NULL, "Invalid Map\n");
 	}
 	if (skip_newline(&line, fd))
@@ -79,7 +79,7 @@ static void	valid_check(int fd, t_map_info *info)
 	*/
 }
 
-static int	file_exist_check(t_map_info *info)
+static int	file_exist_check(t_img_info *info)
 {
 	int	fd[4];
 	int	error;
@@ -106,7 +106,7 @@ static int	file_exist_check(t_map_info *info)
 	return (0);
 }
 
-void	valid_check_and_fill_info(char *av[], t_map_info *info)
+void	valid_check_and_fill_info(char *av[], t_img_info *info)
 {
 	int	fd;
 
@@ -115,11 +115,11 @@ void	valid_check_and_fill_info(char *av[], t_map_info *info)
 	fd = open(av[1], O_RDONLY);
 	if (fd <= 0)
 		error_exit("open error\n");
-	init_map_info(info);
+	init_img_info(info);
 	valid_check(fd, info);
 	if (file_exist_check(info))
 	{
-		free_map_info(info);
+		free_img_info(info);
 		error_exit("");
 	}
 }

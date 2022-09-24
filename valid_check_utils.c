@@ -12,7 +12,7 @@
 
 #include "valid_check.h"
 
-void	init_map_info(t_map_info *info)
+void	init_img_info(t_img_info *info)
 {
 	info->celling = NULL;
 	info->floor = NULL;
