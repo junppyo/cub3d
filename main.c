@@ -6,14 +6,12 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:43:44 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/23 14:45:42 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/24 08:46:18 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/*
-		valid_check
-*/
+
 int	main(int ac, char *av[])
 {
 	t_map_info	map_info;

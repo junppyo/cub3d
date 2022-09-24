@@ -3,7 +3,11 @@ FLAGS		= -Wall -Wextra -Werror
 LIBC		= ar rcs
 LIBFT		= libft
 LIBFT_LIB	= libft.a
-SRCS		= main.c
+SRCS		= 	\
+				debug.c \
+				utils.c \
+				valid_check.c \
+				valid_check_utils.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 

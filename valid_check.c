@@ -6,21 +6,12 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/23 15:17:36 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/24 09:01:04 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "valid_check.h"
 
-/*
-	공백 스킵
-	블록 파싱, 파일 존재 여부
-	공백 스킵
-	블록 파싱, 파일 존재 여부
-	공백 스킵
-	지도 파싱, 지도 유효성 체크
-	파일 닫고 다시 열기
-*/
 static int	is_invalid_extension(char *filename)
 {
 	size_t	i;
@@ -34,19 +25,14 @@ static int	is_invalid_extension(char *filename)
 	return (1);
 }
 
-static void	fill_map_info(char **line, int fd, t_map_info *info)
+static int	fill_map_info(char **line, int fd, int id, t_map_info *info)
 {
-	int	id;
-
 	while (ft_strncmp(*line, "\n", 1) != 0 && ft_strlen(*line) != 1 \
 		&& line != NULL)
 	{
 		id = get_identifier(*line);
 		if (id == 0)
-		{
-			printf("%s", *line);
-			error_exit("Invalid Identifier\n");
-		}
+			return (1);
 		if (id == EAST)
 			info->east = ft_strdup(*line);
 		if (id == WEST)
@@ -63,22 +49,61 @@ static void	fill_map_info(char **line, int fd, t_map_info *info)
 		*line = get_next_line(fd);
 	}
 	if (*line == NULL)
-		error_exit("Invalid Map\n");
+		return (1);
+	return (0);
 }
 
 static void	valid_check(int fd, t_map_info *info)
 {
-	int		id;
 	char	*line;
 
-	skip_newline(&line, fd);
-	fill_map_info(&line, fd, info);
-	skip_newline(&line, fd);
-	fill_map_info(&line, fd, info);
+	if (skip_newline(&line, fd))
+		free_err_exit(NULL, line, NULL, "Invalid Map\n");
+	if (fill_map_info(&line, fd, 0, info))
+	{
+		free_map_info(info);
+		free_err_exit(NULL, line, NULL, "Invalid Map\n");
+	}
+	if (skip_newline(&line, fd))
+		free_err_exit(NULL, line, NULL, "Invalid Map\n");
+	if (fill_map_info(&line, fd, 0, info))
+	{
+		free_map_info(info);
+		free_err_exit(NULL, line, NULL, "Invalid Map\n");
+	}
+	if (skip_newline(&line, fd))
+		free_err_exit(NULL, line, NULL, "Invalid Map\n");
 	free(line);// 메모리 누수 체크로 인한 임시 해제
 	/*
 		맵 체크
 	*/
+}
+
+static int	file_exist_check(t_map_info *info)
+{
+	int	fd[4];
+	int	error;
+	int	i;
+
+	error = 0;
+	fd[0] = open(info->east, O_RDONLY);
+	if (fd[0] <= 0)
+		error += printf("east file not exist\n");
+	fd[1] = open(info->west, O_RDONLY);
+	if (fd[1] <= 0)
+		error += printf("west file not exist\n");
+	fd[2] = open(info->south, O_RDONLY);
+	if (fd[2] <= 0)
+		error += printf("south file not exist\n");
+	fd[3] = open(info->north, O_RDONLY);
+	if (fd[3] <= 0)
+		error += printf("north file not exist\n");
+	i = -1;
+	while (++i < 4)
+		close(fd[i]);
+	if (error > 0)
+		return (1);
+	return (0);
 }
 
 void	valid_check_and_fill_info(char *av[], t_map_info *info)
@@ -90,5 +115,11 @@ void	valid_check_and_fill_info(char *av[], t_map_info *info)
 	fd = open(av[1], O_RDONLY);
 	if (fd <= 0)
 		error_exit("open error\n");
+	init_map_info(info);
 	valid_check(fd, info);
+	if (file_exist_check(info))
+	{
+		free_map_info(info);
+		error_exit("");
+	}
 }

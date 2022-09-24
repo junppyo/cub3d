@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:55:52 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/23 15:21:48 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/24 09:03:19 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "valid_check.h"
 
 void	init_map_info(t_map_info *info)
 {
@@ -19,23 +19,25 @@ void	init_map_info(t_map_info *info)
 	info->east = NULL;
 	info->west = NULL;
 	info->south = NULL;
-	info->north = NULL;	
+	info->north = NULL;
 }
 
-void	skip_newline(char **line, int fd)
+int	skip_newline(char **line, int fd)
 {
 	if (*line)
 		ft_free(*line);
 	*line = get_next_line(fd);
-	while (ft_strlen(*line) == 1 \
-		&& ft_strncmp(*line, "\n", 1) == 0)
+	while (ft_strlen(*line) == 1 && ft_strncmp(*line, "\n", 1) == 0)
 	{
 		ft_free(*line);
 		*line = get_next_line(fd);
 	}
+	if (*line == NULL)
+		return (1);
+	return (0);
 }
 
-static void	free_err_exit(char **token, char *line, int *arr, char *msg)
+void	free_err_exit(char **token, char *line, int *arr, char *msg)
 {
 	int	i;
 
