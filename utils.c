@@ -6,44 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:15 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/23 15:09:16 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:50:24 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char	*ft_strdup(const char *str)
-{
-	char	*tmp;
-	char	*result;
-	size_t	len;
-
-	len = ft_strlen(str);
-	result = (char *)malloc(sizeof(char) * len + 1);
-	if (!result)
-		return (NULL);
-	tmp = result;
-	while (*str != '\0')
-		*(tmp++) = *(str++);
-	*tmp = '\0';
-	return (result);
-}
-
-void	free_img_info(t_img_info *info)
-{
-	if (info->floor)
-		free(info->floor);
-	if (info->celling)
-		free(info->celling);
-	if (info->east)
-		free(info->east);
-	if (info->west)
-		free(info->west);
-	if (info->south)
-		free(info->south);
-	if (info->north)
-		free(info->north);
-}
 
 void	error_exit(char *message)
 {
@@ -53,11 +20,20 @@ void	error_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
+void	gameinfo_init(t_game_info *info, t_img_info *img_info, t_map_info *map_info)
+{
+	ft_memset(img_info, 0, sizeof(img_info));
+	ft_memset(map_info, 0, sizeof(map_info));
+	info->imginfo = img_info;
+	info->mapinfo = map_info;
+	info->fd = 0;
+}
+
 char	*ft_strtok(char *str, char sepa)
 {
 	static char	*stock = NULL;
 	char		*ptr;
-	int		i;
+	int			i;
 
 	i = 0;
 	ptr = NULL;

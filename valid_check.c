@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/24 09:01:04 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:36:15 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "valid_check.h"
+#include "cub3d.h"
 
 static int	is_invalid_extension(char *filename)
 {
@@ -27,20 +27,19 @@ static int	is_invalid_extension(char *filename)
 
 static int	fill_img_info(char **line, int fd, int id, t_img_info *info)
 {
-	while (ft_strncmp(*line, "\n", 1) != 0 && ft_strlen(*line) != 1 \
-		&& line != NULL)
+	while (line != NULL && ft_strncmp(*line, "\n", 1) != 0)
 	{
 		id = get_identifier(*line);
 		if (id == 0)
 			return (1);
 		if (id == EAST)
-			info->east = ft_strdup(*line);
+			info->east = ft_strdup_without_newline(*line + 3);
 		if (id == WEST)
-			info->west = ft_strdup(*line);
+			info->west = ft_strdup_without_newline(*line + 3);
 		if (id == SOUTH)
-			info->south = ft_strdup(*line);
+			info->south = ft_strdup_without_newline(*line + 3);
 		if (id == NORTH)
-			info->north = ft_strdup(*line);
+			info->north = ft_strdup_without_newline(*line + 3);
 		if (id == CELLING)
 			info->celling = line_to_arr(*line);
 		if (id == FLOOR)
@@ -53,30 +52,22 @@ static int	fill_img_info(char **line, int fd, int id, t_img_info *info)
 	return (0);
 }
 
-static void	valid_check(int fd, t_img_info *info)
+static void	valid_check(t_game_info *info)
 {
 	char	*line;
 
-	if (skip_newline(&line, fd))
-		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	if (fill_img_info(&line, fd, 0, info))
-	{
-		free_img_info(info);
-		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	}
-	if (skip_newline(&line, fd))
-		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	if (fill_img_info(&line, fd, 0, info))
-	{
-		free_img_info(info);
-		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	}
-	if (skip_newline(&line, fd))
-		free_err_exit(NULL, line, NULL, "Invalid Map\n");
-	free(line);// 메모리 누수 체크로 인한 임시 해제
-	/*
-		맵 체크
-	*/
+	line = NULL;
+	if (skip_newline(&line, info->fd))
+		free_err_exit(info, NULL, NULL, "Invalid Map\n");
+	if (fill_img_info(&line, info->fd, 0, info->imginfo))
+		free_err_exit(info, line, NULL, "Invalid Map\n");
+	if (skip_newline(&line, info->fd))
+		free_err_exit(info, line, NULL, "Invalid Map\n");
+	if (fill_img_info(&line, info->fd, 0, info->imginfo))
+		free_err_exit(info, line, NULL, "Invalid Map\n");
+	if (skip_newline(&line, info->fd))
+		free_err_exit(info, line, NULL, "Invalid Map\n");
+	init_map_info(info, line);
 }
 
 static int	file_exist_check(t_img_info *info)
@@ -106,20 +97,18 @@ static int	file_exist_check(t_img_info *info)
 	return (0);
 }
 
-void	valid_check_and_fill_info(char *av[], t_img_info *info)
+void	valid_check_and_fill_info(char *av[], t_game_info *info)
 {
-	int	fd;
-
 	if (is_invalid_extension(av[1]))
 		error_exit("Map's Extension Must Be {$FILE_NAME}.cub\n");
-	fd = open(av[1], O_RDONLY);
-	if (fd <= 0)
+	info->fd = open(av[1], O_RDONLY);
+	if (info->fd <= 0)
 		error_exit("open error\n");
-	init_img_info(info);
-	valid_check(fd, info);
-	if (file_exist_check(info))
-	{
-		free_img_info(info);
-		error_exit("");
-	}
+	valid_check(info);
+	// debug
+	//show_struct(info);
+	map_check(info);
+	if (file_exist_check(info->imginfo))
+		free_err_exit(info, NULL, NULL, "");
+	exit(0);
 }

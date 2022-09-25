@@ -8,7 +8,9 @@ SRCS		= 	\
 				utils.c \
 				valid_check.c \
 				valid_check_utils.c \
-				map_check.c
+				map_check.c \
+				map_check_utils.c \
+				del.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 

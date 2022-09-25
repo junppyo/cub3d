@@ -2,6 +2,17 @@
 	"files.associations": {
 		"cub3d.h": "c",
 		"libft.h": "c",
-		"valid_check.h": "c"
+		"valid_check.h": "c",
+		"__locale": "c",
+		"atomic": "c",
+		"cstdlib": "c",
+		"locale": "c",
+		"ostream": "c",
+		"typeinfo": "c",
+		"algorithm": "c",
+		"complex": "c",
+		"new": "c",
+		"_types.h": "c",
+		"debug.h": "c"
 	}
 }

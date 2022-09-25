@@ -6,27 +6,33 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:38 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/23 15:10:41 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:31:18 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	leak_check(void)
+void	leak_check(void)
 {
 	system("leaks a.out");
 }
 
-int	main(int ac, char *av[])
+void	show_struct(t_game_info *info)
 {
-	t_game_info	gameinfo;
-
-	gameinfo.imginfo = malloc(sizeof(t_img_info));
-	gameinfo.mapinfo = malloc(sizeof(t_map_info));
-	atexit(leak_check);
-	if (ac != 2)
-		error_exit("Argument Error\n[USAGE]\t./cub3d {$FILE_NAME}.cub\n");
-	valid_check_and_fill_info(av, gameinfo.imginfo);
-	free_img_info(gameinfo.imginfo);
-	return (EXIT_SUCCESS);
+	printf("========[show_struct]========\n\n");
+	for (int i = 0; i < RGB_LEN; i++)
+		printf("celling[%d]:%d\n", i, info->imginfo->celling[i]);
+	printf("\n");
+	for (int i = 0; i < RGB_LEN; i++)
+		printf("floor[%d]:%d\n", i, info->imginfo->floor[i]);
+	printf("\n");
+	printf("NORTH:%s\n", info->imginfo->north);
+	printf("SOUTH:%s\n", info->imginfo->south);
+	printf("EAST:%s\n", info->imginfo->east);
+	printf("WEST:%s\n", info->imginfo->west);
+	printf("\n");
+	for (int i = 0; i < info->mapinfo->row; i++)
+		printf("%s", info->mapinfo->map[i]);
+	printf("\n============================\n\n");
 }
+

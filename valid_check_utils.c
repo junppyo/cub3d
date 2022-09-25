@@ -6,20 +6,18 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:55:52 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/24 09:03:19 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:53:59 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "valid_check.h"
+#include "cub3d.h"
 
-void	init_img_info(t_img_info *info)
+static void	token_free_exit(char **token, char *msg)
 {
-	info->celling = NULL;
-	info->floor = NULL;
-	info->east = NULL;
-	info->west = NULL;
-	info->south = NULL;
-	info->north = NULL;
+	if (token)
+		free_token(token);
+	if (msg)
+		error_exit(msg);
 }
 
 int	skip_newline(char **line, int fd)
@@ -27,7 +25,7 @@ int	skip_newline(char **line, int fd)
 	if (*line)
 		ft_free(*line);
 	*line = get_next_line(fd);
-	while (ft_strlen(*line) == 1 && ft_strncmp(*line, "\n", 1) == 0)
+	while (line != NULL && ft_strncmp(*line, "\n", 1) == 0)
 	{
 		ft_free(*line);
 		*line = get_next_line(fd);
@@ -35,24 +33,6 @@ int	skip_newline(char **line, int fd)
 	if (*line == NULL)
 		return (1);
 	return (0);
-}
-
-void	free_err_exit(char **token, char *line, int *arr, char *msg)
-{
-	int	i;
-
-	if (token)
-	{
-		i = -1;
-		while (token[++i])
-			free(token[i]);
-		free(token);
-	}
-	if (line)
-		free(line);
-	if (arr)
-		free(arr);
-	error_exit(msg);
 }
 
 int	*line_to_arr(char *line)
@@ -63,23 +43,23 @@ int	*line_to_arr(char *line)
 
 	temp = ft_split(line + 2, ',');
 	if (!temp)
-		free_err_exit(NULL, line, NULL, "Split Error\n");
+		token_free_exit(NULL, "Split Error\n");
 	arr = (int *)malloc(sizeof(int) * RGB_LEN);
 	if (!arr)
-		free_err_exit(temp, line, NULL, "line_to_arr malloc Error\n");
+		token_free_exit(temp, "line_to_arr malloc Error\n");
 	i = -1;
 	while (++i < RGB_LEN)
 	{
 		arr[i] = ft_atoi(temp[i]);
 		if (arr[i] < 0 || 255 < arr[i])
-			free_err_exit(temp, line, arr, "Invalid RGB Color.\n");
+			token_free_exit(temp, "Invalid RGB Color.\n");
 	}
 	if (temp[i] != NULL)
-		free_err_exit(temp, line, arr, "Invalid RGB Color.\n");
+		token_free_exit(temp, "Invalid RGB Color.\n");
 	i = -1;
 	while (temp[++i])
-		free(temp[i]);
-	free(temp);
+		ft_free(temp[i]);
+	ft_free(temp);
 	return (arr);
 }
 
