@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:43:44 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 12:37:59 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:29:23 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char *av[])
 	t_img_info	img_info;
 	t_map_info	map_info;
 
-	//atexit(leak_check);
+	atexit(leak_check);
 	if (ac != 2)
 		error_exit("Argument Error\n[USAGE]\t./cub3d {$FILE_NAME}.cub\n");
 	gameinfo_init(&gameinfo, &img_info, &map_info);

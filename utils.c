@@ -20,7 +20,8 @@ void	error_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
-void	gameinfo_init(t_game_info *info, t_img_info *img_info, t_map_info *map_info)
+void	gameinfo_init(t_game_info *info, t_img_info *img_info, \
+			t_map_info *map_info)
 {
 	ft_memset(img_info, 0, sizeof(img_info));
 	ft_memset(map_info, 0, sizeof(map_info));

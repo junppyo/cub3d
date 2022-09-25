@@ -42,9 +42,8 @@ void	init_map_info(t_game_info *info, char *line)
 		if (info->mapinfo->col < (int) ft_strlen(info->mapinfo->map[i]))
 			info->mapinfo->col = ft_strlen(info->mapinfo->map[i]);
 	}
-	info->mapinfo->map[i] = NULL;
 	while (i < MAX_ROW)
-		free(info->mapinfo->map[i++]);
+		ft_free(info->mapinfo->map[i++]);
 }
 
 int	chk_map(t_map_info *info)

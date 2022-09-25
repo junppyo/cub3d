@@ -36,7 +36,7 @@ void	free_map(t_map_info *info)
 	if (info->map == NULL)
 		return ;
 	i = -1;
-	while (++i < info->col)
+	while (++i < info->row)
 		ft_free(info->map[i]);
 	ft_free(info->map);
 }
@@ -50,7 +50,7 @@ void	free_err_exit(t_game_info *info, char *line, int *arr, char *msg)
 	if (info->mapinfo != NULL)
 	{
 		i = -1;
-		while (++i < info->mapinfo->col)
+		while (++i < info->mapinfo->row)
 			ft_free(info->mapinfo->map[i]);
 		ft_free(info->mapinfo);
 	}

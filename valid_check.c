@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 12:36:15 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:22:36 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ void	valid_check_and_fill_info(char *av[], t_game_info *info)
 		error_exit("open error\n");
 	valid_check(info);
 	// debug
-	//show_struct(info);
+	show_struct(info);
 	map_check(info);
-	if (file_exist_check(info->imginfo))
-		free_err_exit(info, NULL, NULL, "");
+	file_exist_check(info->imginfo);
+		//free_err_exit(info, NULL, NULL, "");
 	exit(0);
 }
