@@ -54,9 +54,16 @@ static int	chk_wall(char *s)
 	tmp = ft_strtok(s, ' ');
 	while (tmp)
 	{
-		if (ft_strlen(tmp) < 1 && (((tmp[ft_strlen(tmp) - 1] == '\n' && \
-			tmp[ft_strlen(tmp) - 2] != '1') && \
-			tmp[ft_strlen(tmp) - 1] != '1') || tmp[0] != '1'))
+		if (ft_strlen(tmp) == 1 && tmp[0] == '1')
+		{
+			tmp = ft_strtok(NULL, ' ');
+			continue ;
+		}
+		if (tmp[ft_strlen(tmp) - 1] == '\n' && tmp[ft_strlen(tmp) - 2] != '1')
+			return (1);
+		if (tmp[ft_strlen(tmp) - 1] != '\n' && tmp[ft_strlen(tmp) - 1] != '1')
+			return (1);
+		if (tmp[0] != '1')
 			return (1);
 		tmp = ft_strtok(NULL, ' ');
 	}
@@ -67,7 +74,7 @@ int	chk_x_wall(t_map_info *info)
 {
 	int		i;
 
-	i = 0;
+	i = -1;
 	while (info->map[++i])
 	{
 		if (chk_wall(info->map[i]))
@@ -76,20 +83,21 @@ int	chk_x_wall(t_map_info *info)
 	return (0);
 }
 
-int chk_y_wall(t_map_info *info)
+int	chk_y_wall(t_map_info *info)
 {
 	int		i;
 	int		j;
 	char	*s;
 
 	i = -1;
-	s = malloc(sizeof(char) * info->row);
+	s = malloc(sizeof(char) * info->row + 1);
+	s[info->row] = '\0';
 	while (++i < info->col)
 	{
 		j = -1;
 		while (++j < info->row)
 		{
-			if (!info->map[j][i] || info->map[j][i] == '\n')
+			if ((int)ft_strlen(info->map[j]) - 1 < i || info->map[j][i] == '\n')
 				s[j] = ' ';
 			else
 				s[j] = info->map[j][i];
