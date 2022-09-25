@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 08:47:40 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/24 08:47:41 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 10:47:13 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@
 
 # define RGB_LEN 3
 # define MAX_ROW 512
+
+enum	e_identifier
+{
+	EAST = 1,
+	WEST,
+	SOUTH,
+	NORTH,
+	CELLING,
+	FLOOR
+};
 
 typedef struct s_img_info
 {
@@ -53,14 +63,43 @@ typedef struct s_game_info
 }	t_game_info;
 
 /*
-		valid_check.c
-*/
-void	valid_check_and_fill_info(char *av[], t_img_info *info);
-/*
 		utils.c
 */
-void	free_img_info(t_img_info *info);
 void	error_exit(char *message);
 char	*ft_strtok(char *str, char sepa);
+
+/*
+		valid_check.c
+*/
+void	valid_check_and_fill_info(char *av[], t_game_info *info);
+/*
+		valid_check_utils
+*/
+int		skip_newline(char **line, int fd);
+int		*line_to_arr(char *line);
+int		get_identifier(char *line);
+void	free_err_exit(t_game_info *info, char *line, int *arr, char *msg);
+
+/*
+		map_check
+*/
+int		chk_x_wall(t_map_info *info);
+int		chk_y_wall(t_map_info *info);
+int		chk_map(t_map_info *info);
+void 	init_map_info(t_game_info *info, char *line);
+
+/*
+		map_check_utils
+*/
+void	gameinfo_init(t_game_info *info);
+int		is_map(char *str);
+
+/*
+		del
+*/
+void    free_token(char **token);
+void	free_map(t_map_info *info);
+void	free_img_info(t_img_info *info);
+void	free_err_exit(t_game_info *info, char *line, int *arr, char *msg);
 
 #endif

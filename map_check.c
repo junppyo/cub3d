@@ -1,21 +1,26 @@
 #include "cub3d.h"
 
-void	init_map_info(t_game_info *info)
+void	init_map_info(t_game_info *info, char *line)
 {
-	int		i;
+	int	i;
 
-	i = -1;
 	info->mapinfo->map = malloc(sizeof(char *) * MAX_ROW);
 	info->mapinfo->row = 0;
 	info->mapinfo->col = 0;
-	while ((info->mapinfo->map[++i] = get_next_line(info->fd)) != NULL)
+	i = -1;
+	while (is_map(line))
 	{
+		info->mapinfo->map[++i] = line;
 		info->mapinfo->row++;
-		if (info->mapinfo->col < (int) ft_strlen(info->mapinfo->map[i]))
+		if (info->mapinfo->col < (int)ft_strlen(info->mapinfo->map[i]))
 			info->mapinfo->col = ft_strlen(info->mapinfo->map[i]);
+		ft_free(line);
+		line = get_next_line(info->fd);
 	}
 	while (i < MAX_ROW)
 		free(info->mapinfo->map[i++]);
+	if (line != NULL)
+		free_err_exit(info, NULL, NULL, "Invalid map\n");
 }
 
 int	chk_map(t_map_info *info)
