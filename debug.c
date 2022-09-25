@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:38 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 12:31:18 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:30:31 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	leak_check(void)
 {
-	system("leaks cub3d");
+	system("leaks cub3D");
 }
 
 void	show_struct(t_game_info *info)
@@ -35,4 +35,3 @@ void	show_struct(t_game_info *info)
 		printf("%s", info->mapinfo->map[i]);
 	printf("\n============================\n\n");
 }
-

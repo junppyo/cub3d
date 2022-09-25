@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 08:47:40 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 12:32:59 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:43:27 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,29 @@ typedef struct s_img_info
 	char	*north;
 }	t_img_info;
 
+typedef	struct s_img
+{
+	void	*east;
+	void	*west;
+	void	*south;
+	void	*north;
+}	t_img;
+
 typedef struct s_map_info
 {
-	char	**map;
 	int		row;
 	int		col;
 	int		player_x;
 	int		player_y;
+	char	**map;
 }	t_map_info;
 
 typedef struct s_game_info
 {
 	int			fd;
+	void		*mlx;
+	void		*win;
+	t_img		img;
 	t_img_info	*imginfo;
 	t_map_info	*mapinfo;
 }	t_game_info;
@@ -102,7 +113,7 @@ void 	init_map_info(t_game_info *info, char *line);
 		map_check_utils
 */
 int		is_map(char *str);
-void	map_check(t_game_info *game_info);
+int		map_check(t_game_info *game_info);
 
 /*
 		del

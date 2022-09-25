@@ -1,16 +1,16 @@
 #include "cub3d.h"
 
-void    free_token(char **token)
+void	free_token(char **token)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (token[i])
-    {
-        ft_free(token[i]);
-        i++;
-    }
-    ft_free(token);
+	i = 0;
+	while (token[i])
+	{
+		ft_free(token[i]);
+		i++;
+	}
+	ft_free(token);
 }
 
 void	free_img_info(t_img_info *info)

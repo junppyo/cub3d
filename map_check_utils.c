@@ -6,23 +6,37 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 07:42:57 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 12:36:03 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:34:42 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_check(t_game_info *game_info)
+int	map_check(t_game_info *game_info)
 {
+	int	error;
+	int	i;
+
+	error = 0;
+	i = -1;
+	while (++i < game_info->mapinfo->row)
+	{
+		if (game_info->mapinfo->map[i] \
+			&& ft_strncmp(game_info->mapinfo->map[i], "\n", 1) == 0)
+			return (printf("map include empty line\n"));
+		if (!is_map(game_info->mapinfo->map[i]))
+			return (printf("Invalid characters\n"));
+	}
 	if (chk_map(game_info->mapinfo))
-		printf("start position must be one.\n");
-	if (chk_x_wall(game_info->mapinfo)) 
-		printf("X wall broken\n");
+		error += printf("start position must be one\n");
+	if (chk_x_wall(game_info->mapinfo))
+		error += printf("X wall broken\n");
 	if (chk_y_wall(game_info->mapinfo))
-		printf("Y wall broken\n");
+		error += printf("Y wall broken\n");
+	return (error);
 }
 
-int		is_map(char *str)
+int	is_map(char *str)
 {
 	int	i;
 

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/25 16:52:16 by sangtale          #+#    #+#              #
+#    Updated: 2022/09/25 16:52:16 by sangtale         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		= cub3D
 FLAGS		= -Wall -Wextra -Werror
 LIBC		= ar rcs
@@ -23,7 +35,7 @@ all			: $(NAME)
 
 $(NAME)		: $(OBJS)
 		@make all -C $(LIBFT)/
-		@gcc -o $(NAME) $(OBJS) -Llibft -lft 
+		@gcc -o $(NAME) $(OBJS) -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
 
 clean :
