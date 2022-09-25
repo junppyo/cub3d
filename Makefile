@@ -6,7 +6,7 @@
 #    By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/25 16:52:16 by sangtale          #+#    #+#              #
-#    Updated: 2022/09/25 16:52:16 by sangtale         ###   ########.fr        #
+#    Updated: 2022/09/26 07:57:05 by sangtale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS		= 	\
 				map_check.c \
 				map_check_utils.c \
 				del.c \
+				game_manager.c \
+				game_input.c \
 				debug.c
 
 OBJS		= $(SRCS:%.c=%.o)

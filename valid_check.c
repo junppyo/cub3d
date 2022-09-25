@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 16:48:53 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/26 07:58:04 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	valid_check(t_game_info *info)
 	if (skip_newline(&line, info->fd))
 		free_err_exit(info, line, NULL, "Invalid Map\n");
 	init_map_info(info, line);
+	close(info->fd);
 }
 
 static int	file_exist_check(t_img_info *info)
