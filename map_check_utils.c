@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 07:42:57 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:49:55 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:36:03 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	map_check(t_game_info *game_info)
 	if (chk_x_wall(game_info->mapinfo)) 
 		printf("X wall broken\n");
 	if (chk_y_wall(game_info->mapinfo))
-		printf("Y wall broken\n");	
+		printf("Y wall broken\n");
 }
 
 int		is_map(char *str)

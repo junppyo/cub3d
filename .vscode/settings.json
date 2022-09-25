@@ -12,6 +12,7 @@
 		"algorithm": "c",
 		"complex": "c",
 		"new": "c",
-		"_types.h": "c"
+		"_types.h": "c",
+		"debug.h": "c"
 	}
 }

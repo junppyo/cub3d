@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:15 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:45:41 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:50:24 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ void	error_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
-void	gameinfo_init(t_game_info *info)
+void	gameinfo_init(t_game_info *info, t_img_info *img_info, t_map_info *map_info)
 {
-	t_img_info	img_info;
-	t_map_info	map_info;
-
-	ft_memset(&img_info, 0, sizeof(img_info));
-	ft_memset(&map_info, 0, sizeof(map_info));
-	info->imginfo = &img_info;
-	info->mapinfo = &map_info;
+	ft_memset(img_info, 0, sizeof(img_info));
+	ft_memset(map_info, 0, sizeof(map_info));
+	info->imginfo = img_info;
+	info->mapinfo = map_info;
 	info->fd = 0;
 }
 

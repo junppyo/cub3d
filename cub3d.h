@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 08:47:40 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:47:13 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:32:59 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,21 @@ typedef struct s_game_info
 	t_map_info	*mapinfo;
 }	t_game_info;
 
+
+/****************************************************************************
+								DEL_DEBUG_HEADER
+****************************************************************************/
+# include "debug.h"
+/****************************************************************************
+								DEL_DEBUG_HEADER
+*****************************************************************************/
+
 /*
 		utils.c
 */
 void	error_exit(char *message);
 char	*ft_strtok(char *str, char sepa);
+void	gameinfo_init(t_game_info *info, t_img_info *img_info, t_map_info *map_info);
 
 /*
 		valid_check.c
@@ -91,8 +101,8 @@ void 	init_map_info(t_game_info *info, char *line);
 /*
 		map_check_utils
 */
-void	gameinfo_init(t_game_info *info);
 int		is_map(char *str);
+void	map_check(t_game_info *game_info);
 
 /*
 		del

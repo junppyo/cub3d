@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:55:52 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:49:23 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:53:59 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	token_free_exit(char **token, char *msg)
 
 int	skip_newline(char **line, int fd)
 {
-	if (line)
+	if (*line)
 		ft_free(*line);
 	*line = get_next_line(fd);
 	while (line != NULL && ft_strncmp(*line, "\n", 1) == 0)

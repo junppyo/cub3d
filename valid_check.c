@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:36:53 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:36:15 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,23 @@ static int	fill_img_info(char **line, int fd, int id, t_img_info *info)
 {
 	while (line != NULL && ft_strncmp(*line, "\n", 1) != 0)
 	{
-		printf("valid_check1 : %s", *line);
 		id = get_identifier(*line);
 		if (id == 0)
 			return (1);
 		if (id == EAST)
-			info->east = ft_strdup(*line + 3);
+			info->east = ft_strdup_without_newline(*line + 3);
 		if (id == WEST)
-			info->west = ft_strdup(*line + 3);
+			info->west = ft_strdup_without_newline(*line + 3);
 		if (id == SOUTH)
-			info->south = ft_strdup(*line + 3);
+			info->south = ft_strdup_without_newline(*line + 3);
 		if (id == NORTH)
-			info->north = ft_strdup(*line + 3);
+			info->north = ft_strdup_without_newline(*line + 3);
 		if (id == CELLING)
 			info->celling = line_to_arr(*line);
 		if (id == FLOOR)
 			info->floor = line_to_arr(*line);
 		ft_free(*line);
 		*line = get_next_line(fd);
-		printf("valid_check2 : %s", *line);
 	}
 	if (*line == NULL)
 		return (1);
@@ -68,7 +66,7 @@ static void	valid_check(t_game_info *info)
 	if (fill_img_info(&line, info->fd, 0, info->imginfo))
 		free_err_exit(info, line, NULL, "Invalid Map\n");
 	if (skip_newline(&line, info->fd))
-		free_err_exit(info, NULL, NULL, "Invalid Map\n");
+		free_err_exit(info, line, NULL, "Invalid Map\n");
 	init_map_info(info, line);
 }
 
@@ -107,13 +105,10 @@ void	valid_check_and_fill_info(char *av[], t_game_info *info)
 	if (info->fd <= 0)
 		error_exit("open error\n");
 	valid_check(info);
+	// debug
+	//show_struct(info);
+	map_check(info);
 	if (file_exist_check(info->imginfo))
-	{
-		free_img_info(info->imginfo);
-		free_map(info->mapinfo);
-		error_exit("");
-	}
-	printf("END!\n");
+		free_err_exit(info, NULL, NULL, "");
 	exit(0);
-	//init_map_info(info);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug                                              :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:38 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 10:41:50 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:31:18 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,20 @@ void	leak_check(void)
 
 void	show_struct(t_game_info *info)
 {
+	printf("========[show_struct]========\n\n");
 	for (int i = 0; i < RGB_LEN; i++)
-		printf("floor[%d] : %d\n", i, info->imginfo->celling[i]);
+		printf("celling[%d]:%d\n", i, info->imginfo->celling[i]);
+	printf("\n");
 	for (int i = 0; i < RGB_LEN; i++)
-		printf("floor[%d] : %d\n", i, info->imginfo->floor[i]);
-	printf("NORTH : %s", info->imginfo->north);
-	printf("SOUTH : %s", info->imginfo->south);
-	printf("EAST : %s", info->imginfo->east);
-	printf("WEST : %s", info->imginfo->west);
+		printf("floor[%d]:%d\n", i, info->imginfo->floor[i]);
+	printf("\n");
+	printf("NORTH:%s\n", info->imginfo->north);
+	printf("SOUTH:%s\n", info->imginfo->south);
+	printf("EAST:%s\n", info->imginfo->east);
+	printf("WEST:%s\n", info->imginfo->west);
+	printf("\n");
+	for (int i = 0; i < info->mapinfo->row; i++)
+		printf("%s", info->mapinfo->map[i]);
+	printf("\n============================\n\n");
 }
 

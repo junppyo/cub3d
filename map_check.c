@@ -1,5 +1,6 @@
 #include "cub3d.h"
 
+/*
 void	init_map_info(t_game_info *info, char *line)
 {
 	int	i;
@@ -7,20 +8,43 @@ void	init_map_info(t_game_info *info, char *line)
 	info->mapinfo->map = malloc(sizeof(char *) * MAX_ROW);
 	info->mapinfo->row = 0;
 	info->mapinfo->col = 0;
-	i = -1;
+	i = 0;
 	while (is_map(line))
 	{
-		info->mapinfo->map[++i] = line;
+		info->mapinfo->map[i] = line;
 		info->mapinfo->row++;
 		if (info->mapinfo->col < (int)ft_strlen(info->mapinfo->map[i]))
 			info->mapinfo->col = ft_strlen(info->mapinfo->map[i]);
 		ft_free(line);
 		line = get_next_line(info->fd);
+		i++;
 	}
+	info->mapinfo->map[i] =
 	while (i < MAX_ROW)
-		free(info->mapinfo->map[i++]);
+		ft_free(info->mapinfo->map[i++]);
 	if (line != NULL)
 		free_err_exit(info, NULL, NULL, "Invalid map\n");
+}
+*/
+
+void	init_map_info(t_game_info *info, char *line)
+{
+	int	i;
+
+	i = 0;
+	info->mapinfo->map = malloc(sizeof(char *) * MAX_ROW);
+	info->mapinfo->row = 0;
+	info->mapinfo->col = 0;
+	info->mapinfo->map[i] = line;
+	while ((info->mapinfo->map[++i] = get_next_line(info->fd)) != NULL)
+	{
+		info->mapinfo->row++;
+		if (info->mapinfo->col < (int) ft_strlen(info->mapinfo->map[i]))
+			info->mapinfo->col = ft_strlen(info->mapinfo->map[i]);
+	}
+	info->mapinfo->map[i] = NULL;
+	while (i < MAX_ROW)
+		free(info->mapinfo->map[i++]);
 }
 
 int	chk_map(t_map_info *info)
@@ -81,7 +105,7 @@ int	chk_x_wall(t_map_info *info)
 	return (0);
 }
 
-int chk_y_wall(t_map_info *info)
+int	chk_y_wall(t_map_info *info)
 {
 	int		i;
 	int		j;
