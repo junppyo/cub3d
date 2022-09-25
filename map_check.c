@@ -36,11 +36,13 @@ void	init_map_info(t_game_info *info, char *line)
 	info->mapinfo->row = 0;
 	info->mapinfo->col = 0;
 	info->mapinfo->map[i] = line;
-	while ((info->mapinfo->map[++i] = get_next_line(info->fd)) != NULL)
+	info->mapinfo->col = ft_strlen(line);
+	while (info->mapinfo->map[i])
 	{
 		info->mapinfo->row++;
 		if (info->mapinfo->col < (int) ft_strlen(info->mapinfo->map[i]))
 			info->mapinfo->col = ft_strlen(info->mapinfo->map[i]);
+		info->mapinfo->map[++i] = get_next_line(info->fd);
 	}
 	while (i < MAX_ROW)
 		ft_free(info->mapinfo->map[i++]);
@@ -80,6 +82,8 @@ static int	chk_wall(char *s)
 	char	*tmp;
 
 	tmp = ft_strtok(s, ' ');
+	if (!tmp)
+		free(s);
 	while (tmp)
 	{
 		if (ft_strlen(tmp) == 1 && tmp[0] == '1')
@@ -118,8 +122,7 @@ int	chk_y_wall(t_map_info *info)
 	char	*s;
 
 	i = -1;
-	s = malloc(sizeof(char) * info->row + 1);
-	s[info->row] = '\0';
+	s = malloc(sizeof(char) * info->row);
 	while (++i < info->col)
 	{
 		j = -1;
@@ -131,7 +134,9 @@ int	chk_y_wall(t_map_info *info)
 				s[j] = info->map[j][i];
 		}
 		if (chk_wall(s))
+		{
 			return (1);
+		}
 	}
 	return (0);
 }

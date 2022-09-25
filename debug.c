@@ -14,7 +14,7 @@
 
 void	leak_check(void)
 {
-	system("leaks a.out");
+	system("leaks cub3d");
 }
 
 void	show_struct(t_game_info *info)

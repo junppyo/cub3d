@@ -11,6 +11,7 @@ SRCS		= 	\
 				map_check.c \
 				map_check_utils.c \
 				del.c \
+				debug.c
 
 OBJS		= $(SRCS:%.c=%.o)
 

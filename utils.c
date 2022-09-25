@@ -30,30 +30,46 @@ void	gameinfo_init(t_game_info *info, t_img_info *img_info, \
 	info->fd = 0;
 }
 
+static char	*ft_strtok_init(char *str, char **stock, int *len, int *i)
+{
+	*i = 0;
+	if (str)
+	{
+		*len = 0;
+		*stock = ft_strdup(str);
+	}
+	return (NULL);
+}
+
+static void	ft_strtok_s(char **ptr, char **stock, int *i)
+{
+	*ptr = *stock;
+	*i = 1;
+}
+
 char	*ft_strtok(char *str, char sepa)
 {
 	static char	*stock = NULL;
+	static int	len;
 	char		*ptr;
 	int			i;
 
-	i = 0;
-	ptr = NULL;
-	if (str != NULL)
-		stock = ft_strdup(str);
+	ptr = ft_strtok_init(str, &stock, &len, &i);
 	while (*stock != '\0')
 	{
 		if (i == 0 && *stock != sepa)
-		{
-			i = 1;
-			ptr = stock;
-		}
+			ft_strtok_s(&ptr, &stock, &i);
 		else if (i == 1 && *stock == sepa)
 		{
 			*stock = '\0';
 			stock += 1;
+			len++;
 			break ;
 		}
 		stock++;
+		len++;
 	}
+	if (!ptr)
+		free(stock - len);
 	return (ptr);
 }
