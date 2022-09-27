@@ -56,11 +56,11 @@ int get_mouse_button(NSEventType eventtype)
 
 @implementation NSWindowEvent
 
-- (NSWindowEvent *) initWithvalueRect:(NSRect)rect styleMask:(NSUInteger)winstyle backing:(NSBackingStoreType)bck defer:(BOOL) dfr
+- (NSWindowEvent *) initWithContentRect:(NSRect)rect styleMask:(NSUInteger)winstyle backing:(NSBackingStoreType)bck defer:(BOOL) dfr
 {
   int i;
 
-  if ((self = [super initWithvalueRect:rect
+  if ((self = [super initWithContentRect:rect
 		     styleMask:winstyle
 		     backing:bck
 		     defer:dfr]))
@@ -346,11 +346,11 @@ int get_mouse_button(NSEventType eventtype)
     {
       NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable;
 
-      win = [[NSWindowEvent alloc] initWithvalueRect:rect
+      win = [[NSWindowEvent alloc] initWithContentRect:rect
 				   styleMask:windowStyle
 				   backing:NSBackingStoreBuffered   // NSBackingStoreNonretained
 				   defer:NO];
-      [win setvalueView:self];
+      [win setContentView:self];
       [win setTitle:title];
       [win setKeyRepeat:1];
       [win makeKeyAndOrderFront:self];

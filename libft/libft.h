@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:54:25 by sangtale          #+#    #+#             */
-/*   Updated: 2022/06/23 01:16:11 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 18:01:39 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	putnbr_long(unsigned long nbr, t_notation notation, int *cnt);
 **
 */
 char	*ft_strdup_without_newline(char *str);
+char	*ft_strdup_nl_and_free(char *str);
 size_t	ft_strlcpy_without_newline(char *dst, char *src, size_t dstsize);
 char	*ft_strjoin_without_newline(char *s1, char *s2);
 void	ft_free(void *data);

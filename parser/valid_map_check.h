@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:31:23 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/27 09:31:23 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:32:32 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define VALID_MAP_CHECK_H
 
 # include "../cub3d.h"
+
+# define RGB_LEN 3
+# define MAX_ROW 512
 
 /*
 		valid_check.c

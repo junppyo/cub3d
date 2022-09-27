@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 08:47:40 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/27 09:33:22 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:09:18 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <fcntl.h>
 
 /* < custom header > */
-# include "structure.h"
+# include "./structure.h"
 # include "parser/valid_map_check.h"
 # include "game_manager/game_manager.h"
 
@@ -34,9 +34,6 @@
 /****************************************************************************
 								DEL_DEBUG_HEADER
 *****************************************************************************/
-
-# define RGB_LEN 3
-# define MAX_ROW 512
 
 /*
 		utils.c
