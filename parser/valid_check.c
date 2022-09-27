@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:44:26 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/26 07:58:04 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:31:06 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	is_invalid_extension(char *filename)
 {

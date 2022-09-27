@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 08:47:40 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/26 07:57:39 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:33:22 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,53 +16,6 @@
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 
-enum	e_identifier
-{
-	EAST = 1,
-	WEST,
-	SOUTH,
-	NORTH,
-	CELLING,
-	FLOOR
-};
-
-typedef struct s_img_info
-{
-	int		*floor;
-	int		*celling;
-	char	*east;
-	char	*west;
-	char	*south;
-	char	*north;
-}	t_img_info;
-
-typedef struct s_img
-{
-	void	*east;
-	void	*west;
-	void	*south;
-	void	*north;
-}	t_img;
-
-typedef struct s_map_info
-{
-	int		row;
-	int		col;
-	int		player_x;
-	int		player_y;
-	char	**map;
-}	t_map_info;
-
-typedef struct s_game_info
-{
-	int			fd;
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_img_info	*imginfo;
-	t_map_info	*mapinfo;
-}	t_game_info;
-
 /* f : perror, strerror, printf */
 # include <stdio.h>
 
@@ -70,13 +23,14 @@ typedef struct s_game_info
 # include <fcntl.h>
 
 /* < custom header > */
-# include "valid_map_check.h"
-# include "game_manager.h"
+# include "structure.h"
+# include "parser/valid_map_check.h"
+# include "game_manager/game_manager.h"
 
 /****************************************************************************
 								DEL_DEBUG_HEADER
 ****************************************************************************/
-# include "debug.h"
+# include "debug/debug.h"
 /****************************************************************************
 								DEL_DEBUG_HEADER
 *****************************************************************************/

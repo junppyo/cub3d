@@ -1,6 +1,27 @@
 ## cub3D ##
 
 🧊
+[디렉토리]
+cub3d
+|
+|-- Makefile
+|-- asset
+|-- cub3d.h
+|-- debug
+|   |-- debug.c
+|   `-- debug.h
+|-- del.c
+|-- game_manager
+|-- libft
+|-- main.c
+|-- map
+|   |-- invalid_map
+|   `-- valid_map
+|-- mlx
+|-- parser
+|-- readme.md
+|-- structure.h
+`-- utils.c
 
 # flow #
 

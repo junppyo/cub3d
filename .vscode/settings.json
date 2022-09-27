@@ -14,6 +14,7 @@
 		"new": "c",
 		"_types.h": "c",
 		"debug.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"valid_map_check.h": "c"
 	}
 }

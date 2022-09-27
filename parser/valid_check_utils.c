@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:55:52 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 11:53:59 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:31:03 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	token_free_exit(char **token, char *msg)
 {

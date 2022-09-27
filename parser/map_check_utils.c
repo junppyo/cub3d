@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 07:42:57 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 16:34:42 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:30:54 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	map_check(t_game_info *game_info)
 {

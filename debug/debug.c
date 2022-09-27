@@ -6,11 +6,11 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:09:38 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/25 16:30:31 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:33:29 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	leak_check(void)
 {

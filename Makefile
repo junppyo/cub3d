@@ -6,26 +6,36 @@
 #    By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/25 16:52:16 by sangtale          #+#    #+#              #
-#    Updated: 2022/09/26 07:57:05 by sangtale         ###   ########.fr        #
+#    Updated: 2022/09/27 09:37:07 by sangtale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+#	compile
 NAME		= cub3D
 FLAGS		= -Wall -Wextra -Werror
 LIBC		= ar rcs
+
+#	Library
 LIBFT		= libft
 LIBFT_LIB	= libft.a
+
+#	Directory
+MANAGE_DIR	= game_manager
+PARSER_DIR	= parser
+DEBUG_DIR	= debug
+
 SRCS		= 	\
 				main.c \
 				utils.c \
-				valid_check.c \
-				valid_check_utils.c \
-				map_check.c \
-				map_check_utils.c \
 				del.c \
-				game_manager.c \
-				game_input.c \
-				debug.c
+				$(PARSER_DIR)/valid_check.c \
+				$(PARSER_DIR)/valid_check_utils.c \
+				$(PARSER_DIR)/map_check.c \
+				$(PARSER_DIR)/map_check_utils.c \
+				$(MANAGE_DIR)/game_manager.c \
+				$(MANAGE_DIR)/game_input.c \
+				$(MANAGE_DIR)/game_image.c \
+				$(DEBUG_DIR)/debug.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 
@@ -34,11 +44,9 @@ OBJS		= $(SRCS:%.c=%.o)
 
 all			: $(NAME)
 
-
 $(NAME)		: $(OBJS)
 		@make all -C $(LIBFT)/
 		@gcc -o $(NAME) $(OBJS) -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
-
 
 clean :
 		@rm -f $(OBJS)
