@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:54:11 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/27 20:05:43 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:16:46 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	init_ray(t_game_info *info, t_ray *r, int y)
 
 static void set_buffer(t_game_info *info, t_ray *r, int x, int y)
 {
-	const int	floorTexture = 1;
-	const int	cellingTexture = 1;
+	const int	floorTexture = 4;
+	const int	cellingTexture = 5;
 
 	r->cellX = (int)r->floorX;
 	r->cellY = (int)r->floorY;

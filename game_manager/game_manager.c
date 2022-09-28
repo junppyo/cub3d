@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 07:46:48 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/27 20:13:15 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:20:19 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	game_loop(t_game_info *g)
 	t_ray	ray;
 
 	floor_casting(g, &ray);
+	wall_casting(g, &ray);
 	draw(g, &ray);
 	return (0);
 }
@@ -55,7 +56,7 @@ void	game_start(t_game_info *g)
 		free_err_exit(g, 0, 0, "mlx_new_window failure!\n");
 	g->img.img = mlx_new_image(g->mlx, width, height);
 	g->img.data = (int *)mlx_get_data_addr \
-		(&(g->img.img), &(g->img.bpp), &(g->img.size_l), &(g->img.endian));
+		(g->img.img, &(g->img.bpp), &(g->img.size_l), &(g->img.endian));
 	mlx_loop_hook(g->mlx, &game_loop, g);
 	mlx_hook(g->win, X_EVENT_KEY_PRESS, 0, &press_key, g);
 	mlx_loop(g->mlx);

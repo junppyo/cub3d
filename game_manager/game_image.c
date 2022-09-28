@@ -6,7 +6,7 @@
 /*   By: sangtale <sangtale@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:44:53 by sangtale          #+#    #+#             */
-/*   Updated: 2022/09/27 13:55:27 by sangtale         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:16:36 by sangtale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	init_texture(t_game_info *g)
 {
 	int	i;
 
-	g->texture = (int **)malloc(sizeof(int *) * 4);
+	g->texture = (int **)malloc(sizeof(int *) * 6);
 	if (g->texture == NULL)
 		free_err_exit(g, 0, 0, "img_texture malloc failure\n");
 	i = -1;
-	while (++i < 4)
+	while (++i < 6)
 	{
 		g->texture[i] = (int *)malloc(sizeof(int) * texHeight * texWidth);
 		if (g->texture[i] == NULL)
@@ -63,4 +63,6 @@ void	load_texture(t_game_info *g)
 	load_image(g, g->texture[1], g->imginfo->west, &img);
 	load_image(g, g->texture[2], g->imginfo->south, &img);
 	load_image(g, g->texture[3], g->imginfo->north, &img);
+	load_image(g, g->texture[4], "./asset/floor.xpm", &img);
+	load_image(g, g->texture[5], "./asset/celling.xpm", &img);
 }
