@@ -21,6 +21,7 @@
 
 /* f : open, close */
 # include <fcntl.h>
+# include <math.h>
 
 /* < custom header > */
 # include "./structure.h"

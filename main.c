@@ -17,11 +17,12 @@ int	main(int ac, char *av[])
 	t_game_info	gameinfo;
 	t_img_info	img_info;
 	t_map_info	map_info;
-
+	setbuf(stdout, NULL);
 	if (ac != 2)
 		error_exit("Argument Error\n[USAGE]\t./cub3d {$FILE_NAME}.cub\n");
 	gameinfo_init(&gameinfo, &img_info, &map_info);
 	valid_check_and_fill_info(av, &gameinfo);
+
 	game_start(&gameinfo);
 	return (EXIT_SUCCESS);
 }

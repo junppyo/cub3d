@@ -13,6 +13,9 @@
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+# define width					640
+# define height					640
+
 enum	e_identifier
 {
 	EAST = 1,
@@ -69,6 +72,7 @@ typedef struct s_game_info
 	t_img		img;
 	t_img_info	*imginfo;
 	t_map_info	*mapinfo;
+	int		buf[height][width];
 }	t_game_info;
 
 #endif

@@ -37,9 +37,8 @@ static void	draw(t_game_info *g, t_ray *r)
 int	game_loop(t_game_info *g)
 {
 	t_ray	ray;
-
-	floor_casting(g, &ray);
-	wall_casting(g, &ray);
+	// floor_casting(g, &ray);
+	wall_casting(g);
 	draw(g, &ray);
 	return (0);
 }

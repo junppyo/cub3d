@@ -106,8 +106,8 @@ void	valid_check_and_fill_info(char *av[], t_game_info *info)
 	if (info->fd <= 0)
 		error_exit("open error\n");
 	valid_check(info);
-	if (map_check(info))
-		error_exit("invalid map\n");
+	// if (map_check(info))
+	// 	error_exit("invalid map\n");
 	if (file_exist_check(info->imginfo))
 		error_exit("");
 }

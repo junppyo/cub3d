@@ -73,5 +73,6 @@ void	find_starting_point(t_map_info *m, char **map);
 		-[floor_casting]
 */
 void	floor_casting(t_game_info *info, t_ray *ray);
+void	wall_casting(t_game_info *info);
 
 #endif

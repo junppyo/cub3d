@@ -14,8 +14,23 @@
 
 static void set_starting_point(t_map_info *m, int x, int y)
 {
+	// m->posX = 22.0;
+	// m->posY = 11.5;
+	// m->dirX = -1.0;
+	// m->dirY = 0.0;
+	// m->planeX = 0.0;
+	// m->planeY = 0.66;
+	// return ;
+
 	m->posX = x + 0.5;
 	m->posY = y + 0.5;
+	
+	m->dirX = -1.0;
+	m->dirY = 0.0;
+	m->planeX = 0.0;
+	m->planeY = 0.66;
+	return ;	
+
 	if (m->map[y][x] == 'E')
 	{
 		m->dirX = -1;
@@ -47,9 +62,8 @@ void	find_starting_point(t_map_info *m, char **map)
 	while (++y < m->row)
 	{
 		x = -1;
-		while (++x < m->col)
+		while (map[y][++x])
 		{
-			if (ft_strchr("EWNS", map[y][x]))
 			{
 				set_starting_point(m, x, y);
 				return ;

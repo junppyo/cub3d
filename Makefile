@@ -36,7 +36,7 @@ SRCS		= 	\
 				$(MANAGE_DIR)/game_manager_utils.c \
 				$(MANAGE_DIR)/game_input.c \
 				$(MANAGE_DIR)/game_image.c \
-				$(MANAGE_DIR)/floor_casting.c \
+				$(MANAGE_DIR)/wall_casting.c \
 				$(DEBUG_DIR)/debug.c \
 
 OBJS		= $(SRCS:%.c=%.o)
