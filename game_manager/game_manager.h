@@ -30,26 +30,47 @@
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 
-typedef	struct s_ray
+typedef struct s_ray
 {
-	int		p;
-	int		cellX;
-	int		cellY;
-	int		tx;
-	int		ty;
-	int		color;
-	float	posZ;
-	float	rayDirX0;
-	float	rayDirY0;
-	float	rayDirX1;
-	float	rayDirY1;
-	float	rowDistance;
-	float	floorStepX;
-	float	floorStepY;
-	float	floorX;
-	float	floorY;
-	int		buf[height][width];
-}	t_ray;
+	float	DirX;
+	float	DirY;
+	float	firstX;
+	float	firstY;
+	float	nextX;
+	float	nextY;
+	float	dist;
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		rebuf;
+} t_ray;
+
+// typedef	struct s_ray
+// {
+// 	int		p;
+// 	int		cellX;
+// 	int		cellY;
+// 	int		tx;
+// 	int		ty;
+// 	int		color;
+// 	float	posZ;
+// 	float	rayDirX0;
+// 	float	rayDirY0;
+// 	float	rayDirX1;
+// 	float	rayDirY1;
+// 	float	rowDistance;
+// 	float	floorStepX;
+// 	float	floorStepY;
+// 	float	floorX;
+// 	float	floorY;
+// 	int		buf[height][width];
+// }	t_ray;
 
 /*
 		game_manager
@@ -76,3 +97,6 @@ void	floor_casting(t_game_info *info, t_ray *ray);
 void	wall_casting(t_game_info *info);
 
 #endif
+
+
+

@@ -1,108 +1,112 @@
 #include "game_manager.h"
 
-
-
-typedef struct rayy
+static void	init_ray(t_game_info *info, t_ray *ray)
 {
-	float rayDirX;
-	float rayDirY;
-	float firstX;
-	float firstY;
-	float nextX;
-	float nextY;
-	float dist;
-	int mapX;
-	int mapY;
-	int stepX;
-	int stepY;
-} raay;
+	int	i;
+	int	j;
+
+	ray->mapX = (int) info->mapinfo->posX;
+	ray->mapY = (int) info->mapinfo->posY;
+	ray->hit = 0;
+	ray->side = 0;
+	i = -1;
+	if (ray->rebuf)
+	{
+		while (++i < height)
+		{
+			j = -1;
+			while (++j < width)
+				info->buf[i][j] = 0;
+		}
+	}
+	ray->rebuf = 0;
+}
+
+static void	init_ray2(t_map_info *info, t_ray *ray, int x)
+{
+	ray->DirX = info->dirX + info->planeX * \
+				(((float)x * 2 / (float)width) - 1);
+	ray->DirY = info->dirY + info->planeY * \
+				(((float)x * 2 / (float)width) - 1);
+	ray->nextX = fabs(1 / ray->DirX);
+	ray->nextY = fabs(1 / ray->DirY);
+	if (ray->DirX < 0)
+		ray->firstX = (info->posX - ray->mapX) * ray->nextX;
+	else
+		ray->firstX = (ray->mapX + 1.0 - info->posX) * ray->nextX;
+	if (ray->DirX < 0)
+		ray->stepX = -1;
+	else
+		ray->stepX = 1;
+	if (ray->DirY < 0)
+		ray->firstY = (info->posY - ray->mapY) * ray->nextY;
+	else
+		ray->firstY = (ray->mapY + 1.0 - info->posY) * ray->nextY;
+	if (ray->DirY < 0)
+		ray->stepY = -1;
+	else
+		ray->stepY = 1;
+}
+
+static void	collision_check(t_map_info *info, t_ray *ray)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->nextX < ray->nextY)
+		{
+			ray->nextX += ray->firstX;
+			ray->mapX += ray->stepX;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->nextY += ray->firstY;
+			ray->mapY += ray->stepY;
+			ray->side = 1;
+		}
+		if (info->map[ray->mapY][ray->mapX] >= '1')
+			ray->hit = 1;
+	}
+	if (ray->side == 0)
+		ray->dist = (ray->mapY - info->posY + (1 - ray->stepY) / 2) / ray->DirY;
+	else
+		ray->dist = (ray->mapX - info->posX + (1 - ray->stepX) / 2) / ray->DirX;
+	ray->dist = fabs(ray->dist);
+}
+
+static void	make_buf(t_game_info *info, t_ray *ray, int x)
+{
+	int	i;
+
+	i = -1;
+	while (++i < ray->drawStart - 1)
+		info->buf[i][x] = 1234; // floor
+	while (++i < ray->drawEnd - 1)
+		info->buf[i][x] = 65536; // wall
+	while (++i < height - 1)
+		info->buf[i][x] = 0; //ceil
+	ray->rebuf = 1;
+}
 
 void	wall_casting(t_game_info *info)
 {
-	int	x;
-	raay ray;
+	int		x;
+	t_ray	ray;
 
 	x = -1;
 	while (++x < width)
 	{
-	ray.mapX = (int) info->mapinfo->posX;
-	ray.mapY = (int) info->mapinfo->posY;
-	// printf("\t%f %f\n", info->mapinfo->posX, info->mapinfo->posY);
-	// printf("\t%d %d\n", ray.mapX, ray.mapY);
-		ray.rayDirX = info->mapinfo->dirX + info->mapinfo->planeX * ((((float)x * 2) / (float)width) - 1) ;
-		ray.rayDirY = info->mapinfo->dirY + info->mapinfo->planeY * ((( (float)x * 2) / (float)width) - 1);
-		ray.nextX = fabs(1 / ray.rayDirX);
-		ray.nextY = fabs(1 / ray.rayDirY);
-		if (ray.rayDirX < 0)
-		{
-			ray.stepX = -1;
-			ray.firstX = (info->mapinfo->posX - ray.mapX) * ray.nextX;
-		}
-		else
-		{
-			ray.stepX = 1;
-			ray.firstX = (ray.mapX + 1.0 - info->mapinfo->posX) * ray.nextX;
-		}
-		if (ray.rayDirY < 0)
-		{
-			ray.stepY = -1;
-			ray.firstY = (info->mapinfo->posY - ray.mapY) * ray.nextY;
-		}
-		else
-		{
-			ray.stepY = 1;
-			ray.firstY = (ray.mapY + 1.0 - info->mapinfo->posY) * ray.nextY;
-		}
-
-		int hit = 0;
-		int side = 0;
-		while (hit == 0)
-		{
-			// 	printf("x: %d, firstx: %f firstY: %f, nextX: %f, nextY: %f ", x, ray.firstX, ray.firstY, ray.nextX, ray.nextY);
-			if (ray.nextX < ray.nextY)
-			{
-				ray.nextX += ray.firstX;
-				ray.mapX += ray.stepX;
-				side = 0;
-			}
-			else
-			{
-				ray.nextY += ray.firstY;
-				ray.mapY += ray.stepY;
-				side = 1;
-			}
-			if (info->mapinfo->map[ray.mapY][ray.mapX] >= '1')
-				hit = 1;
-			// 	printf(" %d %d %c %d %d\n", ray.mapX, ray.mapY, info->mapinfo->map[ray.mapY][ray.mapX], hit, side);
-
-		}
-		printf("x: %d, mapX: %d mapY: %d\n", x, ray.mapX, ray.mapY);
-		if (side == 0)
-		{
-			ray.dist = (ray.mapY - info->mapinfo->posY + (1 - ray.stepY) / 2) / ray.rayDirY;
-			printf("mapy: %d posY: %f stepY: %d rayDirY: %f", ray.mapY, info->mapinfo->posY, ray.stepY, ray.rayDirY);
-		}
-		else
-		{
-			ray.dist = (ray.mapX - info->mapinfo->posX + (1 - ray.stepX) / 2) / ray.rayDirX;
-			printf("mapx: %d posX: %f stepX: %d rayDirX: %f", ray.mapX, info->mapinfo->posX, ray.stepX, ray.rayDirX);
-		}
-
-		ray.dist = fabs(ray.dist);
-		int lineHeight = (int)(height / ray.dist);
-		printf("dist: %f Height: %d\n", ray.dist, lineHeight);
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + height / 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + height / 2;
-		if(drawEnd >= height)
-			drawEnd = height - 1;
-
-		printf("x: %d dist: %f drawstart: %d drawend: %d\n", x, ray.dist, drawStart, drawEnd);
-		for (int i = drawStart ;i < drawEnd; i++)
-		{
-			info->buf[i][x] = 65536;
-		}
+		init_ray(info, &ray);
+		init_ray2(info->mapinfo, &ray, x);
+		collision_check(info->mapinfo, &ray);
+		ray.lineHeight = (int)(height / ray.dist);
+		ray.drawStart = -ray.lineHeight / 2 + height / 2;
+		if (ray.drawStart < 0)
+			ray.drawStart = 0;
+		ray.drawEnd = ray.lineHeight / 2 + height / 2;
+		if (ray.drawEnd >= height)
+			ray.drawEnd = height - 1;
+		printf("x: %d dist: %f drawstart: %d drawend: %d\n", x, ray.dist, ray.drawStart, ray.drawEnd);
+		make_buf(info, &ray, x);
 	}
 }
